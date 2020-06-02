@@ -1,68 +1,68 @@
-[![npm](https://img.shields.io/npm/v/steemconnect.svg)](https://www.npmjs.com/package/steemconnect)
-![npm](https://img.shields.io/npm/dm/steemconnect.svg)
-![CircleCI](https://img.shields.io/circleci/project/github/bonustrack/steemconnect.js.svg)
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bonustrack/steemconnect.js/master/LICENSE)
+[![npm](https://img.shields.io/npm/v/steemlogin.svg)](https://www.npmjs.com/package/steemlogin)
+![npm](https://img.shields.io/npm/dm/steemlogin.svg)
+![CircleCI](https://img.shields.io/circleci/project/github/bonustrack/steemlogin.js.svg)
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/bonustrack/steemlogin.js/master/LICENSE)
 
-# SteemConnect.js
+# SteemLogin.js
 
-The official SteemConnect JavaScript SDK.
+The official SteemLogin JavaScript SDK.
 
 ## Getting started
 
-To install and run SteemConnect.js, follow this quick start guide
+To install and run SteemLogin.js, follow this quick start guide
 
 ### Install
 
-SteemConnect.js was designed to work both in the browser and in Node.js.
+SteemLogin.js was designed to work both in the browser and in Node.js.
 
 #### Node.js
-To install SteemConnect.js on Node.js, open your terminal and run:
+To install SteemLogin.js on Node.js, open your terminal and run:
 ```
-npm i steemconnect --save
+npm i steemlogin --save
 ```
 
 #### Browser
 
-You can create an index.html file and include SteemConnect.js with:
+You can create an index.html file and include SteemLogin.js with:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/steemconnect"></script>
+<script src="https://cdn.jsdelivr.net/npm/steemlogin"></script>
 ```
 
 ### Usage
 
-For general information about SteemConnect and setting up your app you can checkout the developer documentation.
+For general information about SteemLogin and setting up your app you can checkout the developer documentation.
 
-**[Developers documentation](https://beta.steemconnect.com/developers)**
+**[Developers documentation](https://beta.steemlogin.com/developers)**
 
 ## SDK methods
 
 ### Init client
 Call the Client() method when your app first loads to init the SDK:
 ```
-var steemconnect = require('steemconnect');
+var steemlogin = require('steemlogin');
 
-var client = new steemconnect.Client({
+var client = new steemlogin.Client({
   app: 'staging.app',
-  callbackURL: 'https://demo.steemconnect.com',
+  callbackURL: 'https://demo.steemlogin.com',
   scope: ['vote', 'comment']
 });
 ```
 Parameters:
-- __app__: This is the name of the app that was registered in the SteemConnect V2 dashboard
-- __callbackURL__: This is the URL that users will be redirected to after interacting with SteemConnect. It must be listed in the "Redirect URI(s)" list in the app settings EXACTLY the same as it is specified here
-- __accessToken__: If you have an oauth2 access token for this user already you can specify it here, otherwise you can leave it and set it later using steemconnect.setAccessToken(accessToken).
-- __scope__: This is a list of operations the app will be able to access on the user's account. For a complete list of scopes see: [https://github.com/bonustrack/steemconnect/wiki/OAuth-2#scopes](https://github.com/bonustrack/steemconnect/wiki/OAuth-2#scopes)
+- __app__: This is the name of the app that was registered in the SteemLogin V2 dashboard
+- __callbackURL__: This is the URL that users will be redirected to after interacting with SteemLogin. It must be listed in the "Redirect URI(s)" list in the app settings EXACTLY the same as it is specified here
+- __accessToken__: If you have an oauth2 access token for this user already you can specify it here, otherwise you can leave it and set it later using steemlogin.setAccessToken(accessToken).
+- __scope__: This is a list of operations the app will be able to access on the user's account. For a complete list of scopes see: [https://github.com/bonustrack/steemlogin/wiki/OAuth-2#scopes](https://github.com/bonustrack/steemlogin/wiki/OAuth-2#scopes)
 
 ### Universal log in
 
-This method trigger SteemConnect Chrome extension or Steem Keychain for log in, if user don't have Chrome extension enabled it will fallback to SteemConnect website.
+This method trigger SteemLogin Chrome extension or Steem Keychain for log in, if user don't have Chrome extension enabled it will fallback to SteemLogin website.
 
 ```
 var params = {};
 
 // The "username" parameter is required prior to log in for "Steem Keychain" users.
-if (steemconnect.useSteemKeychain) {
+if (steemlogin.useSteemKeychain) {
   params = { username: 'fabien' };
 }
 
@@ -72,16 +72,16 @@ client.login(params, function(err, token) {
 ```
 
 ### Get login URL for OAuth 2
-The following method returns a URL that you can redirect the user to so that they may log in to your app through SteemConnect:
+The following method returns a URL that you can redirect the user to so that they may log in to your app through SteemLogin:
 ```
 var link = client.getLoginURL(state);
-// => https://steemconnect.com/oauth2/authorize?client_id=[app]&redirect_uri=[callbackURL]&scope=vote,comment&state=[state]
+// => https://steemlogin.com/oauth2/authorize?client_id=[app]&redirect_uri=[callbackURL]&scope=vote,comment&state=[state]
 ```
 Parameters:
 - __state__: Data that will be passed to the callbackURL for your app after the user has logged in.
 
-After logging in, SteemConnect will redirect the user to the "redirect_uri" specified in the login url above and add the following query string parameters for your app to use:
-- __access_token__: This is the oauth2 access token that is required to make any Steem API calls on behalf of the current user. Once you have this you need to tell the SteemConnect.js to use it by either specifying it as a parameter to the init() method call or by calling sc2.setAccessToken([accessToken]).
+After logging in, SteemLogin will redirect the user to the "redirect_uri" specified in the login url above and add the following query string parameters for your app to use:
+- __access_token__: This is the oauth2 access token that is required to make any Steem API calls on behalf of the current user. Once you have this you need to tell the SteemLogin.js to use it by either specifying it as a parameter to the init() method call or by calling sc2.setAccessToken([accessToken]).
 - __expires_in__: The number of seconds until the access token expires.
 - __username__: The username of the current user.
 
@@ -194,7 +194,7 @@ const op = ['transfer', {
   to: 'fabien',
   amount: '0.001 STEEM'
 }];
-steemconnect.sendOperation(op, {}, function(err, result) {
+steemlogin.sendOperation(op, {}, function(err, result) {
   console.log(err, result);
 });
 ```
