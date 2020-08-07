@@ -198,3 +198,12 @@ steemlogin.sendOperation(op, {}, function(err, result) {
   console.log(err, result);
 });
 ```
+
+
+## Redirect and obtain transaction id after a successful transaction
+
+### Using redirect uri
+```
+https://steemlogin.com/sign/transfer?to=hightouch&amount=0.001STEEM&memo=test&redirect_uri=https://www.google.com/
+```
+The result will be : https://www.google.com/?id=XXX
